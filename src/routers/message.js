@@ -22,6 +22,10 @@ router.post('/messages', async (req, res) => {
 router.post('/currentMessages', async (req, res) => {
    
     try {
+        await Message.updateMany({ reciever: req.body.currentUser._id, sender: req.body.chatPartner._id }, {
+            read:true
+          });
+          
         const msgs = await Message.find().populate({ path: 'sender'}).populate({ path: 'reciever'});
         console.log(req.body)
         console.log(msgs)
@@ -33,6 +37,9 @@ router.post('/currentMessages', async (req, res) => {
             })
         
         console.log(filteredMsgs) 
+
+        
+
         res.status(200).send(filteredMsgs)
     } catch (e) {
         res.status(400).send(e)

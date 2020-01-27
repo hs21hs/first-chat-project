@@ -1,8 +1,9 @@
 potential issues:
 -when we set state we use a set timeout for the next function
+-when you login without a user it crashes, how can we catch this error etc?
 
--all msgs will have attr read:false
-- when an open chat recieves a msg it has to update it as read
+*-all msgs will have attr read:false
+*- when an open chat recieves a msg it has to update it as read(so the selected chat router wil do this)
 
 -all users filtered array will have new message:false unless you have messages from that uuser wit read:false.(check occurs in be)
     -all users filtered is fetched everytime someone logs in.

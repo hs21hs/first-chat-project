@@ -15,12 +15,12 @@ const Message = mongoose.model('Message', {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'User'
+    },
+    read: {
+        type: Boolean,
+        default: false,
+        ref: 'User'
     }
-    // read: {
-    //     type: Boolean,
-    //     default: false,
-    //     ref: 'User'
-    // }
 })
 
 module.exports = Message
