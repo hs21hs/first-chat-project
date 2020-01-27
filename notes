@@ -1,0 +1,5 @@
+when we set state we use a set timeout for the next function
+
+broadcast to all, if they have that chat open, then call the get selected chat mesages
+
+if that chat is not open then make a notification on that chat
