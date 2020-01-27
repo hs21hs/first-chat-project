@@ -16,6 +16,11 @@ const Message = mongoose.model('Message', {
         required: true,
         ref: 'User'
     }
+    // read: {
+    //     type: Boolean,
+    //     default: false,
+    //     ref: 'User'
+    // }
 })
 
 module.exports = Message

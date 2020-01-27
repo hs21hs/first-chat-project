@@ -22,12 +22,13 @@ router.post('/messages', async (req, res) => {
 router.post('/currentMessages', async (req, res) => {
    
     try {
-        const msgs = await Message.find()
+        const msgs = await Message.find().populate({ path: 'sender'}).populate({ path: 'reciever'});
         console.log(req.body)
-
+        console.log(msgs)
+        
         const filteredMsgs = msgs.filter((msg) => {
-                if(msg.sender.toString() === req.body.currentUser._id && msg.reciever.toString() === req.body.chatPartner._id){return true}
-                if(msg.sender.toString() === req.body.chatPartner._id && msg.reciever.toString() === req.body.currentUser._id){return true}
+                if(msg.sender._id.toString() === req.body.currentUser._id && msg.reciever._id.toString() === req.body.chatPartner._id){return true}
+                if(msg.sender._id.toString() === req.body.chatPartner._id && msg.reciever._id.toString() === req.body.currentUser._id){return true}
                 else{return false}
             })
         

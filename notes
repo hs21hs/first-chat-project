@@ -1,5 +1,15 @@
-when we set state we use a set timeout for the next function
+potential issues:
+-when we set state we use a set timeout for the next function
 
-broadcast to all, if they have that chat open, then call the get selected chat mesages
+-all msgs will have attr read:false
+- when an open chat recieves a msg it has to update it as read
 
-if that chat is not open then make a notification on that chat
+-all users filtered array will have new message:false unless you have messages from that uuser wit read:false.(check occurs in be)
+    -all users filtered is fetched everytime someone logs in.
+    -every time a logged in user recieves a msg all users filtered updates locally
+
+-main issue how to update read true, 
+    -once you open the chat.(can grab all the ids of unread recieved msgs in the now opened chat and, send it back to db to upadate those msgs as read)
+    - the db should send back the updated msgs between u and tha user.
+    -in the frontend if that user is still state.currentChatUser, then repopulate currentChat msgs 
+    -(this may however cause problems if someone sends a new msg before the data is recieved)
