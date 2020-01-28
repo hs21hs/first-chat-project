@@ -3,7 +3,17 @@ potential issues/ questions:
 -when we set state we use a set timeout for the next function
 -when you login without a user it crashes, how can we catch this error etc?
 -general error catching
-
+-{ 
+    why when passing (const currentUser = userOne) from test is the same as (const currentUser = {currentUser:userOne}) from frontend?
+}
+-when testing the same endpoint for different ponints{
+    should you have one test which returns multiple errors or should you have multiple tests as it is easier to read?
+    -if it is the latter, having multiple tests for the same endpoint.{
+        -should you write the test defensively or optimistically as described in "tests/users.test.js" test('A users newMessage attribute should read as true, if they have sent an unread message to current user')
+        defensively: you assume the test is failaing and pass it if you find a reason to.
+        optimistically: you assume the test is passing and fail it if you find a reason to.
+    }
+}
 
 -set up basic tests for your endpoints and make sure u commit a working version with that.
 -refactor code to implement Auth (bCrypt and JWT) understand how the env variables work
