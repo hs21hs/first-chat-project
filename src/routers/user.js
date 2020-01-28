@@ -1,6 +1,7 @@
 const express = require('express')
 const router = new express.Router()
 const User = require('../models/user')
+const Message = require('../models/message')
 //const auth = require('../middleware/auth')
 
 router.post('/users', async (req, res) => {
@@ -31,9 +32,28 @@ router.post('/getAllUsers', async (req, res) => {
     const filteredUsers = allUsers.filter((user) => {
         if (user._id.toString() === req.body.currentUser._id){return false}else{return true}
     })
+    //we need some logic tht takes the filtered users aray. then checks all msgs from tht user to u. if any of them are read:false. we will add an attribute onto the user obj(new message:true)
+    const readUsers = filteredUsers.map(async (user) => {
+        
+        const tes = await Message.find({reciever: req.body.currentUser._id, sender: user._id.toString()})
+        console.log("ggg",tes)
+        tes.forEach( (msg) => {
+            if (msg.read === false){
+                console.log("tryyeeeee")
+                user.newMessage = true}
+        })
+        return user
+    }) 
     
+    const final = await Promise.all(readUsers)
+    console.log("readUsers")
+    console.log(final)
+    
+
+    
+
     try {
-        res.status(200).send(filteredUsers)
+        res.status(200).send(final)
     } catch (e) {
         res.status(400).send(e)
     }
