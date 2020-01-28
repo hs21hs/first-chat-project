@@ -1,9 +1,12 @@
-potential issues:
+potential issues/ questions:
+-learn what are the memory/speed implications. querying the db then mutating the response. of refining ur query so u get back a resp closer to what you want
 -when we set state we use a set timeout for the next function
 -when you login without a user it crashes, how can we catch this error etc?
 -general error catching
 
 
--try to start programming with tdd now
+-set up basic tests for your endpoints and make sure u commit a working version with that.
+-refactor code to implement Auth (bCrypt and JWT) understand how the env variables work
+-refactor tests for Auth
+
 -fix that when u open a chat, the previous chat shows for a split second
--implement Auth (bCrypt and JWT)

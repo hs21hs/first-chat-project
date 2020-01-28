@@ -2,7 +2,7 @@ const mongodb = require('mongodb')
 const MongoClient = mongodb.MongoClient
 
 const connectionURL = 'mongodb://127.0.0.1:27017'
-const databaseName = 'chat-project'
+const databaseName = process.env.DBNAME
 
 MongoClient.connect(connectionURL, { useUnifiedTopology: true}, (error, client) => {
     if (error){

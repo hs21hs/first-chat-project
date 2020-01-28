@@ -6,7 +6,7 @@ const Message = require('../models/message')
 
 router.post('/users', async (req, res) => {
     const user = new User(req.body)
-    console.log(user)
+   
     try {
         await user.save()
         res.status(201).send(user)
@@ -36,7 +36,7 @@ router.post('/getAllUsers', async (req, res) => {
     const readUsers = filteredUsers.map(async (user) => {
         
         const tes = await Message.find({reciever: req.body.currentUser._id, sender: user._id.toString()})
-        console.log("ggg",tes)
+       
         tes.forEach( (msg) => {
             if (msg.read === false){
                 console.log("tryyeeeee")
@@ -46,8 +46,7 @@ router.post('/getAllUsers', async (req, res) => {
     }) 
     
     const final = await Promise.all(readUsers)
-    console.log("readUsers")
-    console.log(final)
+    
     
 
     
