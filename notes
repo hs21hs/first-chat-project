@@ -1,7 +1,7 @@
 potential issues/ questions:
 -learn what are the memory/speed implications. querying the db then mutating the response. of refining ur query so u get back a resp closer to what you want
 -when we set state we use a set timeout for the next function
--when you login without a user it crashes, how can we catch this error etc?
+-when you login/signup without a user it crashes, how can we catch this error etc?
 -general error catching
 -{ 
     why when passing (const currentUser = userOne) from test is the same as (const currentUser = {currentUser:userOne}) from frontend?
@@ -15,7 +15,16 @@ potential issues/ questions:
     }
 }
 
--refactor code to implement Auth (bCrypt and JWT) 
+general notes:
+-userSchema.static is for model/ userSchema.methods is for the instance
+
+to do:
+-refactor code to implement Auth (bCrypt and JWT)
+-your code must catch errors in the frontend correctly.stop chcking if res.user etc
+- in auth.js understand why we need to acces tokens thru a string const user = await User.findOne({ _id: decoded._id, 'tokens.token': token })
+-code shouldnt break, rather throw an error when u try to login non existing user
+-create validation that you cant send a message to yourself
+-how do u stop sql injcetions (force a check on what keys are permitted)
 -decide what the project will be
 -refactor tests for Auth
 -set up basic tests for messages endpoints

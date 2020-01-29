@@ -7,19 +7,22 @@ const Message = require('../src/models/message')
 const userOneId = new mongoose.Types.ObjectId()
 const userOne = {
     _id: userOneId,
-    username: 'haider'
+    username: 'haider',
+    password: 'default123'
 }
 
 const userTwoId = new mongoose.Types.ObjectId()
 const userTwo = {
     _id: userTwoId,
-    username: 'alex'
+    username: 'alex',
+    password: 'default123'
 }
 
 const userThreeId = new mongoose.Types.ObjectId()
 const userThree = {
     _id: userThreeId,
-    username: 'roach'
+    username: 'roach',
+    password: 'default123'
 }
 
 const messageOneId = new mongoose.Types.ObjectId()
@@ -51,13 +54,15 @@ beforeEach(async () => {
 
 test('should sign up new user', async () => {
     await request(app).post('/users').send({
-        username: "fred"
+        username: "fred",
+        password: 'default123'
     }).expect(201)
 })
 
 test('should fail to sign up exsisting user', async () => {
     await request(app).post('/users').send({
-        username: "haider"
+        username: "haider",
+        password: 'default123'
     }).expect(400)
 })
 
