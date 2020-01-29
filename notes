@@ -20,6 +20,8 @@ general notes:
 
 to do:
 -refactor code to implement Auth (bCrypt and JWT)
+    -fix logout for same user logged in twice
+
 -your code must catch errors in the frontend correctly.stop chcking if res.user etc
 - in auth.js understand why we need to acces tokens thru a string const user = await User.findOne({ _id: decoded._id, 'tokens.token': token })
 -code shouldnt break, rather throw an error when u try to login non existing user

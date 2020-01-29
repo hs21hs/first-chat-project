@@ -29,7 +29,7 @@ router.post('/users/login', async (req, res) => {
 })
 
 router.post('/users/logout', auth, async (req, res) => {
-    console.log(req.user,"breakk", req.token)
+    console.log("new1",req.user,"breakk", req.token)
     try {
         req.user.tokens = req.user.tokens.filter((token) => {
             return token.token !== req.token
@@ -48,12 +48,12 @@ router.post('/getAllUsers', auth, async (req, res) => {
 
     const filteredUsers = allUsers.filter((user) => {
         
-        if (user._id.toString() === req.body.currentUser._id){return false}else{return true}
+        if (user._id.toString() === req.user._id){return false}else{return true}
     })
     
     const readUsers = filteredUsers.map(async (user) => {
         
-        const tes = await Message.find({reciever: req.body.currentUser._id, sender: user._id.toString()})
+        const tes = await Message.find({reciever: req.user._id, sender: user._id.toString()})
        
         tes.forEach( (msg) => {
             if (msg.read === false){
