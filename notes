@@ -15,8 +15,8 @@ potential issues/ questions:
     }
 }
 
--set up basic tests for your endpoints and make sure u commit a working version with that.
--refactor code to implement Auth (bCrypt and JWT) understand how the env variables work
+-refactor code to implement Auth (bCrypt and JWT) 
+-decide what the project will be
 -refactor tests for Auth
+-set up basic tests for messages endpoints
 
--fix that when u open a chat, the previous chat shows for a split second
