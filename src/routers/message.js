@@ -4,7 +4,7 @@ const router = new express.Router()
 const User = require('../models/user')
 
 router.post('/messages', async (req, res) => {
-    console.log(req.body.user_id)
+    
     const message = new Message({
         text:req.body.text,
         sender: req.body.sender,
@@ -37,8 +37,6 @@ router.post('/currentMessages', async (req, res) => {
             })
         
         console.log(filteredMsgs) 
-
-        
 
         res.status(200).send(filteredMsgs)
     } catch (e) {
