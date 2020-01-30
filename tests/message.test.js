@@ -63,6 +63,7 @@ beforeEach(async () => {
     await u3.generateAuthToken()
     await new Message(messageOne).save()
     await new Message(messageTwo).save()
+    
 })
 
 test('should fail to create a msg with same user and sender', async () => {

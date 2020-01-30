@@ -19,10 +19,10 @@ general notes:
 -userSchema.static is for model/ userSchema.methods is for the instance
 
 to do:
--maybe try to auth websockets and maybe test them
--create validation that you cant send a message to yourself
--how do u stop sql injcetions (force a check on what keys are permitted)
+-figure out why test suites seeds are messinng with each other. try dropping the db from beforeAll
+-maybe try to auth websockets and maybe test them~figure out what itd take
 -decide what the project will be
--set up basic tests for messages endpoints
+-set up basic auth and tests for any existing endpoints and use tdd from now on
+-how do u stop sql injcetions (force a check on what keys are permitted)
 
 - in auth.js understand why we need to acces tokens thru a string const user = await User.findOne({ _id: decoded._id, 'tokens.token': token })
