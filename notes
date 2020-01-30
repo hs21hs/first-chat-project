@@ -19,8 +19,8 @@ general notes:
 -userSchema.static is for model/ userSchema.methods is for the instance
 
 to do:
--refactor code to implement Auth (bCrypt and JWT)
-    -fix logout for same user logged in twice
+-refactor tests for Auth
+-maybe try to auth websockets and maybe test them
 
 -your code must catch errors in the frontend correctly.stop chcking if res.user etc
 - in auth.js understand why we need to acces tokens thru a string const user = await User.findOne({ _id: decoded._id, 'tokens.token': token })
@@ -28,6 +28,5 @@ to do:
 -create validation that you cant send a message to yourself
 -how do u stop sql injcetions (force a check on what keys are permitted)
 -decide what the project will be
--refactor tests for Auth
 -set up basic tests for messages endpoints
 

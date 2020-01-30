@@ -48,14 +48,15 @@ router.post('/getAllUsers', auth, async (req, res) => {
 
     const filteredUsers = allUsers.filter((user) => {
         
-        if (user._id.toString() === req.user._id){return false}else{return true}
+        if (user._id.toString() === req.user._id.toString()){return false}else{return true}
     })
-    
+    console.log(req.user._id)
+    console.log(filteredUsers)
     const readUsers = filteredUsers.map(async (user) => {
         
-        const tes = await Message.find({reciever: req.user._id, sender: user._id.toString()})
+        const couplesMessages = await Message.find({reciever: req.user._id, sender: user._id.toString()})
        
-        tes.forEach( (msg) => {
+        couplesMessages.forEach( (msg) => {
             if (msg.read === false){
                 
                 user.newMessage = true}

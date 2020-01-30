@@ -45,9 +45,12 @@ const messageTwo = {
 beforeEach(async () => {
     await User.deleteMany()
     await Message.deleteMany()
-    await new User(userOne).save()
-    await new User(userTwo).save()
-    await new User(userThree).save()
+    const u1 = await new User(userOne).save()
+    await u1.generateAuthToken()
+    const u2 = await new User(userTwo).save()
+    await u2.generateAuthToken()
+    const u3 = await new User(userThree).save()
+    await u3.generateAuthToken()
     await new Message(messageOne).save()
     await new Message(messageTwo).save()
 })
@@ -59,6 +62,7 @@ test('should sign up new user', async () => {
     }).expect(201)
 })
 
+
 test('should fail to sign up exsisting user', async () => {
     await request(app).post('/users').send({
         username: "haider",
@@ -67,9 +71,11 @@ test('should fail to sign up exsisting user', async () => {
 })
 
 test('should get all users except the current user', async () => {
-    const currentUser = userOne
+    const currentUser = await User.findOne({_id: userOneId})
     
-    const resp = await request(app).post('/getAllUsers').send({
+    const resp = await request(app).post('/getAllUsers')
+    .set('Authorization', (`Bearer ${currentUser.tokens[0].token}`))
+    .send({
         currentUser
     }).expect(200)
 
@@ -84,9 +90,11 @@ test('should get all users except the current user', async () => {
 
 test('A users newMessage attribute should read as true, if they have sent an unread message to current user', async () => {
     
-    const currentUser = userOne
-    //const currentUser = {currentUser: userOne}
-    const resp = await request(app).post('/getAllUsers').send({
+    const currentUser = await User.findOne({_id: userOneId})
+    
+    const resp = await request(app).post('/getAllUsers')
+    .set('Authorization', (`Bearer ${currentUser.tokens[0].token}`))
+    .send({
         currentUser
     }).expect(200)
 
@@ -106,10 +114,11 @@ test('A users newMessage attribute should read as true, if they have sent an unr
 
 test('A users newMessage attribute should read as false, if they have not sent an unread message to current user', async () => {
     
-    const currentUser = userOne
-    //const currentUser = {currentUser: userOne}
-
-    const resp = await request(app).post('/getAllUsers').send({
+    const currentUser = await User.findOne({_id: userOneId})
+    
+    const resp = await request(app).post('/getAllUsers')
+    .set('Authorization', (`Bearer ${currentUser.tokens[0].token}`))
+    .send({
         currentUser
     }).expect(200)
 
