@@ -6,37 +6,10 @@ const Message = require('./models/message')
 
 const server = http.createServer(app)
 const io = socketio(server)
-const sf = require('./sockets/starting')
+const runSockets = require('./sockets/starting')
 const port = process.env.PORT || 3000
 
-io.on('connection', (socket) => {
-    console.log("connectioned")
-    sf.confirm(socket)
-    recievedMessage(socket)
-})
-
-const createMessage = (messageInfo, socket) => {
-    const message = new Message({
-        text: messageInfo.message,
-        sender: messageInfo.sender,
-        reciever: messageInfo.reciever
-    })
-
-    message.save().then((m) => {
-        
-        io.emit('bc', m)
-    }).catch((e) => {
-        
-    })
-}
-
-const recievedMessage = (socket) => {
-    socket.on("newMessage", (messageInfo) => {
-        
-        createMessage(messageInfo, socket)
-    })
-}
-
+runSockets(io)
 
 
 server.listen(port, () => {
