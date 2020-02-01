@@ -1,11 +1,6 @@
 potential issues/ questions:
 -learn what are the memory/speed implications. querying the db then mutating the response. of refining ur query so u get back a resp closer to what you want
--when we set state we use a set timeout for the next function
 -when you login/signup without a user it crashes, how can we catch this error etc?
--general error catching
--{ 
-    why when passing (const currentUser = userOne) from test is the same as (const currentUser = {currentUser:userOne}) from frontend?
-}
 -when testing the same endpoint for different ponints{
     should you have one test which returns multiple errors or should you have multiple tests as it is easier to read?
     -if it is the latter, having multiple tests for the same endpoint.{
@@ -14,13 +9,45 @@ potential issues/ questions:
         optimistically: you assume the test is passing and fail it if you find a reason to.
     }
 }
+-how do u stop sql injcetions (force a check on what keys are permitted)
+-in auth.js understand why we need to acces tokens thru a string const user = await User.findOne({ _id: decoded._id, 'tokens.token': token })
+-consider if u want to auth nd test websockets
 
 general notes:
 -userSchema.static is for model/ userSchema.methods is for the instance
 
 to do:
--start building it into tinder for dogs- plan the css as you go- use tdd
--how do u stop sql injcetions (force a check on what keys are permitted)
+-start building it into tinder for dogs using tdd
+    login sign up shld stay as is
+    home shld have 
+        1. my profile
+            profile thumnail
+            when you click on home thumbnail it shld open your profile card but with a back button.
+            filter your search(location)(shld be stored in db)
+        2. swipe section
+            shows one profile card at a time by your set filters
+            every swipe shld go thru websockets and send to everyone like a message
+        3. matches/messages section
+        just like, and chat shld be a seperate window or ctx whcih u can scroll up,
 
-- in auth.js understand why we need to acces tokens thru a string const user = await User.findOne({ _id: decoded._id, 'tokens.token': token })
-- consider if u want to auth nd test websockets
+-add ability to filter matches by location
+-add weather app to check wt weather will be like on dates
+
+user to have: crud
+username(of dog) not uniq
+age
+breed
+email address
+password
+img: owner w dog
+
+likes: c
+Liker
+Liked
+
+matches: crd, every time a like happens u check if there is a corrsponding like
+user
+user
+
+messages: cr
+as is

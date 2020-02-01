@@ -7,7 +7,6 @@ const auth = require('../middleware/auth')
 
 router.post('/users', async (req, res) => {
     const user = new User(req.body)
-   
     try {
         await user.save()
         const token = await user.generateAuthToken()
@@ -18,7 +17,6 @@ router.post('/users', async (req, res) => {
 })
 
 router.post('/users/login', async (req, res) => {
-   
     try {
         const user = await User.findByCredentials(req.body.username, req.body.password)
         const token = await user.generateAuthToken()
@@ -29,13 +27,11 @@ router.post('/users/login', async (req, res) => {
 })
 
 router.post('/users/logout', auth, async (req, res) => {
-    console.log("new1",req.user,"breakk", req.token)
     try {
         req.user.tokens = req.user.tokens.filter((token) => {
             return token.token !== req.token
         })
         await req.user.save()
-
         res.send()
     } catch (e) {
         res.status(500).send()
@@ -43,18 +39,14 @@ router.post('/users/logout', auth, async (req, res) => {
 })
 
 router.post('/getAllUsers', auth, async (req, res) => {
-
-    allUsers = await User.find()
+    const allUsers = await User.find()
 
     const filteredUsers = allUsers.filter((user) => {
-        
         if (user._id.toString() === req.user._id.toString()){return false}else{return true}
     })
     
     const readUsers = filteredUsers.map(async (user) => {
-        
         const couplesMessages = await Message.find({reciever: req.user._id, sender: user._id.toString()})
-       
         couplesMessages.forEach( (msg) => {
             if (msg.read === false){
                 

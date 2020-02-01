@@ -4,7 +4,6 @@ const router = new express.Router()
 const User = require('../models/user')
 
 router.post('/messages', async (req, res) => {
-    
     const message = new Message({
         text:req.body.text,
         sender: req.body.sender,
@@ -20,24 +19,21 @@ router.post('/messages', async (req, res) => {
 })
 
 router.post('/currentMessages', async (req, res) => {
-   
     try {
-        await Message.updateMany({ reciever: req.body.currentUser._id, sender: req.body.chatPartner._id }, {
+        await Message.updateMany({ 
+            reciever: req.body.currentUser._id, 
+            sender: req.body.chatPartner._id }, {
             read:true
-          });
+        });
           
         const msgs = await Message.find().populate({ path: 'sender'}).populate({ path: 'reciever'});
-        console.log(req.body)
-        console.log(msgs)
         
         const filteredMsgs = msgs.filter((msg) => {
-                if(msg.sender._id.toString() === req.body.currentUser._id && msg.reciever._id.toString() === req.body.chatPartner._id){return true}
-                if(msg.sender._id.toString() === req.body.chatPartner._id && msg.reciever._id.toString() === req.body.currentUser._id){return true}
-                else{return false}
-            })
+            if(msg.sender._id.toString() === req.body.currentUser._id && msg.reciever._id.toString() === req.body.chatPartner._id){return true}
+            if(msg.sender._id.toString() === req.body.chatPartner._id && msg.reciever._id.toString() === req.body.currentUser._id){return true}
+            else{return false}
+        })
         
-        console.log(filteredMsgs) 
-
         res.status(200).send(filteredMsgs)
     } catch (e) {
         res.status(400).send(e)
