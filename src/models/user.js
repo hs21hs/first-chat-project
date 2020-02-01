@@ -2,6 +2,9 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const Message = require('./message')
+const Like = require('./like')
+const Match= require('./match')
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -96,6 +99,16 @@ userSchema.pre('save', async function (next) {
     if (user.isModified('password')) {
         user.password = await bcrypt.hash(user.password, 8)
     }
+
+    next()
+})
+
+userSchema.pre('remove', async function (next) {
+    const user = this
+    console.log("from schema prr",user)
+    await Message.deleteMany({$or:[{sender: user._id},{reciever: user._id}]})
+    await Like.deleteMany({$or:[{sender: user._id},{reciever: user._id}]})
+    await Match.deleteMany({$or:[{userOne: user._id},{userOne: user._id}]})
 
     next()
 })

@@ -15,8 +15,6 @@ const { userOneId,
     beforeEach(setupDatabase)
 
 test('should create a like', async () => {
-    const ttt = await User.find()
-  
     const currentUser = await User.findOne({_id: userOneId})
 
     await request(app)

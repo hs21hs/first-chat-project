@@ -30,10 +30,19 @@ router.patch('/users', auth, async (req, res) => {
     try {
         const user = await User.findOneAndUpdate({_id: req.user._id},
             req.body, 
-            {new: true}
+            {new: true,
+            useFindAndModify: false},
         )
-        console.log(user)
         res.status(200).send(user)
+    } catch (e) {
+        res.status(400).send(e)
+    }
+})
+
+router.delete('/users', auth, async (req, res) => {
+    try {
+        await req.user.remove()
+        res.status(200).send()
     } catch (e) {
         res.status(400).send(e)
     }

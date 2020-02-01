@@ -2,6 +2,9 @@ const request = require('supertest')
 const app = require('../src/app')
 const User = require('../src/models/user')
 const Message = require('../src/models/message')
+const Like = require('../src/models/like')
+const Match= require('../src/models/match')
+
 const { userOneId,
     userOne,
     userTwoId,
@@ -51,7 +54,24 @@ test('should update exsisting user details', async () => {
     expect(resp.body).toEqual(expect.objectContaining({username: "shaider",age: 6}))
     })
     
+test('should delete all matches likes and messages of that user', async () => {
+    
+    const currentUser = await User.findOne({_id: userOneId})
 
+    await request(app).delete('/users')
+    .set('Authorization', (`Bearer ${currentUser.tokens[0].token}`))
+    .expect(200)
+    const user = await User.findOne({_id: currentUser._id})
+    expect(user).toEqual(null)
+
+    const messages = await Message.find({$or:[{sender: userOneId},{reciever: userOneId}]})
+    const likes = await Like.find({$or:[{sender: userOneId},{reciever: userOneId}]})
+    const matches = await Match.find({$or:[{userOne: userOneId},{userTwo: userOneId}]})
+    
+    expect(messages.length).toEqual(0)
+    expect(likes.length).toEqual(0)
+    expect(matches.length).toEqual(0)
+})
 // test('should get all users except the current user', async () => {
 //     const currentUser = await User.findOne({_id: userOneId})
 //     const resp = await request(app)
@@ -60,7 +80,6 @@ test('should update exsisting user details', async () => {
 //     .send({
 //         currentUser
 //     }).expect(200)
-
 //     let currentUserExists = false
 
 //     resp.body.forEach((user) => {

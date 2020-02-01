@@ -52,6 +52,23 @@ const messageTwo = {
     read: true
 }
 
+const matchOneId = new mongoose.Types.ObjectId()
+
+const matchOne = {
+_id: matchOneId,
+userOne: userOneId,
+userTwo: userTwoId
+}
+
+const selfMatchId = new mongoose.Types.ObjectId()
+
+const selfMatch = {
+_id: selfMatchId,
+userOne: userOneId,
+userTwo: userOneId
+}
+
+
 const setupDatabase = async() => {
     await User.deleteMany()
     await Message.deleteMany()
@@ -77,5 +94,9 @@ module.exports = {
     messageOne,
     messageTwoId,
     messageTwo,
+    matchOneId,
+    matchOne,
+    selfMatchId,
+    selfMatch,
     setupDatabase
 }
