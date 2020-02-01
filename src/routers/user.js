@@ -26,6 +26,19 @@ router.post('/users/login', async (req, res) => {
     }
 })
 
+router.patch('/users', auth, async (req, res) => {
+    try {
+        const user = await User.findOneAndUpdate({_id: req.user._id},
+            req.body, 
+            {new: true}
+        )
+        console.log(user)
+        res.status(200).send(user)
+    } catch (e) {
+        res.status(400).send(e)
+    }
+})
+
 router.post('/users/logout', auth, async (req, res) => {
     try {
         req.user.tokens = req.user.tokens.filter((token) => {

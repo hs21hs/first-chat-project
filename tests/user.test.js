@@ -39,6 +39,19 @@ test('should fail to sign up exsisting user', async () => {
     }).expect(400)
 })
 
+test('should update exsisting user details', async () => {
+    const currentUser = await User.findOne({_id: userOneId})
+
+    const resp = await request(app).patch('/users')
+    .set('Authorization', (`Bearer ${currentUser.tokens[0].token}`))
+    .send({
+        username: "shaider",
+        age: 6
+    }).expect(200)
+    expect(resp.body).toEqual(expect.objectContaining({username: "shaider",age: 6}))
+    })
+    
+
 // test('should get all users except the current user', async () => {
 //     const currentUser = await User.findOne({_id: userOneId})
 //     const resp = await request(app)
