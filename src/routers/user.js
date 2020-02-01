@@ -39,6 +39,7 @@ router.post('/users/logout', auth, async (req, res) => {
 })
 
 router.post('/getAllUsers', auth, async (req, res) => {
+
     const allUsers = await User.find()
 
     const filteredUsers = allUsers.filter((user) => {

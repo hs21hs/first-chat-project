@@ -1,4 +1,6 @@
 potential issues/ questions:
+
+
 -learn what are the memory/speed implications. querying the db then mutating the response. of refining ur query so u get back a resp closer to what you want
 -when you login/signup without a user it crashes, how can we catch this error etc?
 -when testing the same endpoint for different ponints{
@@ -9,7 +11,6 @@ potential issues/ questions:
         optimistically: you assume the test is passing and fail it if you find a reason to.
     }
 }
--how do u stop sql injcetions (force a check on what keys are permitted)
 -in auth.js understand why we need to acces tokens thru a string const user = await User.findOne({ _id: decoded._id, 'tokens.token': token })
 -consider if u want to auth nd test websockets
 
@@ -33,7 +34,7 @@ to do:
 -add ability to filter matches by location
 -add weather app to check wt weather will be like on dates
 
-user to have: crud
+user to have: crud *must dependent destroy
 username(of dog) not uniq
 age
 breed

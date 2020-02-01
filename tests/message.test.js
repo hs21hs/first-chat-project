@@ -2,7 +2,6 @@ const request = require('supertest')
 const app = require('../src/app')
 const User = require('../src/models/user')
 const Message = require('../src/models/message')
-const db = require()
 const { userOneId,
     userOne,
     userTwoId,
@@ -15,6 +14,7 @@ const { userOneId,
     messageTwo,
     setupDatabase } = require('./fixtures/db')
 
+beforeEach(setupDatabase)
 
 test('should fail to create a msg with same user and sender', async () => {
     //const user1 = await User.findById(userOneId)

@@ -6,21 +6,33 @@ const userOneId = new mongoose.Types.ObjectId()
 const userOne = {
     _id: userOneId,
     username: 'haider',
-    password: 'default123'
+    password: 'default123',
+    email: "haider@hotmail.com",
+    breed: "labrador",
+    age: 4,
+    img_ur: "https://3apq7g38q3kw2yn3fx4bojii-wpengine.netdna-ssl.com/wp-content/uploads/2019/10/dog-owner-750x501.jpeg"
 }
 
 const userTwoId = new mongoose.Types.ObjectId()
 const userTwo = {
     _id: userTwoId,
     username: 'alex',
-    password: 'default123'
+    password: 'default123',
+    email: "alex@hotmail.com",
+    breed: "pit",
+    age: 4,
+    img_ur: "https://3apq7g38q3kw2yn3fx4bojii-wpengine.netdna-ssl.com/wp-content/uploads/2019/10/dog-owner-750x501.jpeg"
 }
 
 const userThreeId = new mongoose.Types.ObjectId()
 const userThree = {
     _id: userThreeId,
     username: 'roach',
-    password: 'default123'
+    password: 'default123',
+    email: "roach@hotmail.com",
+    breed: "dob",
+    age: 4,
+    img_ur: "https://3apq7g38q3kw2yn3fx4bojii-wpengine.netdna-ssl.com/wp-content/uploads/2019/10/dog-owner-750x501.jpeg"
 }
 
 const messageOneId = new mongoose.Types.ObjectId()

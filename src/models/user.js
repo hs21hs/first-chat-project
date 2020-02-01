@@ -6,17 +6,7 @@ const jwt = require('jsonwebtoken')
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
-        unique: true,
         required: true,
-        validate(value){
-            if (value === "0"){
-                throw new Error('must be validated')
-            }
-        }
-    },
-    newMessage: {
-        type: Boolean,
-        default: false
     },
     password: {
         type: String,
@@ -28,6 +18,30 @@ const userSchema = new mongoose.Schema({
                 throw new Error('Password cannot contain "password"')
             }
         }
+    },
+    email: {
+        type: String,
+        unique: true,
+        required: true,
+        trim: true,
+        lowercase: true,
+        validate(value) {
+            if (!validator.isEmail(value)) {
+                throw new Error('Email is invalid')
+            }
+        }
+    },
+    breed: {
+        type: String,
+        required: true,
+    },
+    age: {
+        type: Number,
+        required: true,
+    },
+    image_url: {
+        type: String,
+        default: "https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2018/01/12200707/lab-high-five-header.jpg"
     },
     tokens: [{
         token: {
