@@ -1,6 +1,6 @@
 potential issues/ questions:
 
-
+-the schema pre 'remove' doesnt work when u do findAndDelete(). just with remove()
 -learn what are the memory/speed implications. querying the db then mutating the response. of refining ur query so u get back a resp closer to what you want
 -when you login/signup without a user it crashes, how can we catch this error etc?
 -when testing the same endpoint for different ponints{
