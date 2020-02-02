@@ -26,7 +26,7 @@ test('should sign up new user', async () => {
         email: "fred@hotmail.com",
         breed: "labrador",
         age: 4,
-        img_ur: "https://3apq7g38q3kw2yn3fx4bojii-wpengine.netdna-ssl.com/wp-content/uploads/2019/10/dog-owner-750x501.jpeg"
+        image_url: "https://3apq7g38q3kw2yn3fx4bojii-wpengine.netdna-ssl.com/wp-content/uploads/2019/10/dog-owner-750x501.jpeg"
     }).expect(201)
 })
 
@@ -40,6 +40,13 @@ test('should fail to sign up exsisting user', async () => {
     age: 4,
     img_ur: "https://3apq7g38q3kw2yn3fx4bojii-wpengine.netdna-ssl.com/wp-content/uploads/2019/10/dog-owner-750x501.jpeg"
     }).expect(400)
+})
+
+test('should loin exsisting user', async () => {
+    await request(app).post('/users/login').send({
+        password: 'default123',
+        email: "haider@hotmail.com",
+    }).expect(200)
 })
 
 test('should update exsisting user details', async () => {
