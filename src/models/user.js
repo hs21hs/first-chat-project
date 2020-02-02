@@ -105,7 +105,7 @@ userSchema.pre('save', async function (next) {
 
 userSchema.pre('remove', async function (next) {
     const user = this
-    console.log("from schema prr",user)
+    
     await Message.deleteMany({$or:[{sender: user._id},{reciever: user._id}]})
     await Like.deleteMany({$or:[{sender: user._id},{reciever: user._id}]})
     await Match.deleteMany({$or:[{userOne: user._id},{userOne: user._id}]})

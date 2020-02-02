@@ -3,19 +3,11 @@ const app = require('../src/app')
 const User = require('../src/models/user')
 const Message = require('../src/models/message')
 const Like = require('../src/models/like')
+const Dislike = require('../src/models/dislike')
 const Match= require('../src/models/match')
+const mongoose = require('mongoose')
 
-const { userOneId,
-    userOne,
-    userTwoId,
-    userTwo,
-    userThreeId,
-    userThree,
-    messageOneId,
-    messageOne,
-    messageTwoId,
-    messageTwo,
-    setupDatabase } = require('./fixtures/db')
+const { userOneId, userTwoId, userThreeId, userFourId, userFiveId, setupDatabase } = require('./fixtures/db')
     
 beforeEach(setupDatabase)
 
@@ -80,7 +72,29 @@ test('should delete all matches likes and messages of that user', async () => {
     expect(matches.length).toEqual(0)
 })
 
-test('should get all swipe users (not the current user)', async () => {
+test('should get all swipe users (not the current user, or anyone theyve liked)', async () => {
+    
+    const likeOneId = new mongoose.Types.ObjectId()
+    const likeOne = await new Like({
+        _id: likeOneId,
+        sender: userOneId,
+        reciever: userTwoId
+    }).save()
+
+    const dislikeOneId = new mongoose.Types.ObjectId()
+    const dislikeOne = await new Dislike({
+        _id: dislikeOneId,
+        sender: userOneId,
+        reciever: userThreeId
+    }).save()
+
+    const matchOneId = new mongoose.Types.ObjectId()
+    const matchOne = await new Match({
+        _id: matchOneId,
+        userOne: userOneId,
+        userTwo: userFourId
+    }).save()
+
     const currentUser = await User.findOne({_id: userOneId})
     const resp = await request(app)
     .post('/getSwipeUsers')
@@ -90,10 +104,25 @@ test('should get all swipe users (not the current user)', async () => {
     }).expect(200)
     let currentUserExists = false
 
+    //console.log("res", resp.body)
+
     resp.body.forEach((user) => {
         if(user._id===userOneId.toString()){ currentUserExists = true}
     })
     expect(currentUserExists).toBe(false)
+
+    let swipedUserExists = false
+    resp.body.forEach((user) => {
+        if(user._id !== userFiveId.toString()){ swipedUserExists = true}
+    })
+    expect(swipedUserExists).toBe(false)
+
+    let unswipedUserExists = false
+    resp.body.forEach((user) => {
+        if(user._id === userFiveId.toString()){ unswipedUserExists = true}
+    })
+    expect(unswipedUserExists).toBe(true)
+    
 
 })
 

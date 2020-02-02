@@ -2,17 +2,7 @@ const request = require('supertest')
 const app = require('../src/app')
 const User = require('../src/models/user')
 const Message = require('../src/models/message')
-const { userOneId,
-    userOne,
-    userTwoId,
-    userTwo,
-    userThreeId,
-    userThree,
-    messageOneId,
-    messageOne,
-    messageTwoId,
-    messageTwo,
-    setupDatabase } = require('./fixtures/db')
+const { userOneId, userOne, setupDatabase } = require('./fixtures/db')
 
 beforeEach(setupDatabase)
 

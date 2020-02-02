@@ -2,8 +2,11 @@ const express = require('express')
 const router = new express.Router()
 const User = require('../models/user')
 const Message = require('../models/message')
+const Like = require('../models/like')
+const Dislike = require('../models/dislike')
+const Match = require('../models/match')
 const auth = require('../middleware/auth')
-
+const mongoose = require('mongoose')
 
 router.post('/users', async (req, res) => {
     
@@ -65,12 +68,33 @@ router.post('/getSwipeUsers', auth, async (req, res) => {
 
     const allUsers = await User.find()
 
-    const filteredUsers = allUsers.filter((user) => {
+    const filteredOutCurrentUser = allUsers.filter((user) => {
         if (user._id.toString() === req.user._id.toString()){return false}else{return true}
     })
+    //console.log('ff',filteredOutCurrentUser)
+    
+    const promisesWithSwipedData = filteredOutCurrentUser.map(async (user) => {
+        const like = await Like.findOne({sender: req.user._id, reciever: user._id})
+        const dislike = await Dislike.findOne({sender: req.user._id, reciever: user._id})
+        const match = await Match.findOne({$or:[{userOne: req.user._id, userTwo: user._id},{userOne: user._id, userTwo: req.user._id}]})
+        return ({user,like,dislike,match})
+        
+    })
+    const usersWithSD = await Promise.all(promisesWithSwipedData)
+    //console.log('lff',usersWithSD)
+
+    const usersToBeFiltered = usersWithSD.map((obj) => {
+        if(obj.match || obj.like || obj.dislike){return null}else{return obj.user}
+    })
+    //console.log('utbf',usersToBeFiltered)
+    
+    const finalUsersAr = usersToBeFiltered.filter((user) => {
+        if(user){return true}else{return false}
+    })
+    //console.log('final',finalUsersAr)
 
     try {
-        res.status(200).send(filteredUsers)
+        res.status(200).send(finalUsersAr)
     } catch (e) {
         res.status(400).send(e)
     }

@@ -37,3 +37,4 @@ test('should fail to create a like sent to ones self', async () => {
       reciever: userOneId
     }).expect(400)
 })
+
