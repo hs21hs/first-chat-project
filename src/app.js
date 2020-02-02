@@ -6,6 +6,7 @@ require('./db/mongoose')
 const userRouter = require('./routers/user')
 const messageRouter = require('./routers/message')
 const likeRouter = require('./routers/like')
+const dislikeRouter = require('./routers/dislike')
 
 const app = express()
 
@@ -14,5 +15,6 @@ app.use(express.json())
 app.use(userRouter)
 app.use(messageRouter)
 app.use(likeRouter)
+app.use(dislikeRouter)
 
 module.exports = app

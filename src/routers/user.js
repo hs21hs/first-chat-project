@@ -6,7 +6,7 @@ const auth = require('../middleware/auth')
 
 
 router.post('/users', async (req, res) => {
-    console.log("hh",req.body)
+    
     const user = new User(req.body)
     try {
         await user.save()
@@ -60,6 +60,23 @@ router.post('/users/logout', auth, async (req, res) => {
         res.status(500).send()
     }
 })
+
+router.post('/getSwipeUsers', auth, async (req, res) => {
+
+    const allUsers = await User.find()
+
+    const filteredUsers = allUsers.filter((user) => {
+        if (user._id.toString() === req.user._id.toString()){return false}else{return true}
+    })
+
+    try {
+        res.status(200).send(filteredUsers)
+    } catch (e) {
+        res.status(400).send(e)
+    }
+})
+
+
 
 router.post('/getAllUsers', auth, async (req, res) => {
 

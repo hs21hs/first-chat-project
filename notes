@@ -52,3 +52,21 @@ user
 
 messages: cr
 as is
+
+
+
+right now:
+
+-create dislike model
+-test that getSwipeUsers filters out ppl uve already liked or disliked or matched
+
+-like button
+    -creates a like in the backend
+    -checks if that like can make a match
+        if not nothing happens
+        if yes create a match and socket.emit all and for logged in ppl add it to their myMatches state
+    -frontend will delete that swpieUser
+
+-dislike button
+    -creates a dilike in the backend
+    -frontend will delete swipe user

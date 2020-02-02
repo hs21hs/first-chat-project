@@ -79,6 +79,24 @@ test('should delete all matches likes and messages of that user', async () => {
     expect(likes.length).toEqual(0)
     expect(matches.length).toEqual(0)
 })
+
+test('should get all swipe users (not the current user)', async () => {
+    const currentUser = await User.findOne({_id: userOneId})
+    const resp = await request(app)
+    .post('/getSwipeUsers')
+    .set('Authorization', (`Bearer ${currentUser.tokens[0].token}`))
+    .send({
+        currentUser
+    }).expect(200)
+    let currentUserExists = false
+
+    resp.body.forEach((user) => {
+        if(user._id===userOneId.toString()){ currentUserExists = true}
+    })
+    expect(currentUserExists).toBe(false)
+
+})
+
 // test('should get all users except the current user', async () => {
 //     const currentUser = await User.findOne({_id: userOneId})
 //     const resp = await request(app)
