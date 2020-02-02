@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const Match = require('./match')
+const io = require('../index')
 
 const likeSchema = new mongoose.Schema({
         sender: {
@@ -17,13 +19,23 @@ const likeSchema = new mongoose.Schema({
 
 likeSchema.pre('save', async function (next) {
     const like = this
-   
-    if (like.sender._id.toString() === like.reciever._id.toString()) {
+    
+    if (like.sender.toString() === like.reciever.toString()) {
         throw new Error("cannot send a like to ones self")
-    } else { next()}
+    } else { 
+        const complementaryLike = await Like.findOne({sender: like.reciever, reciever: like.sender})
+        if(complementaryLike){
+            const m = await new Match({userOne: complementaryLike.sender, userTwo: this.sender}).save()
+            console.log('match!', m)
+            
+            //io.emit('nmatch', m)
+        
+        }
+        next()
+    }
 
 })
 
-const like = mongoose.model('Like', likeSchema)
+const Like = mongoose.model('Like', likeSchema)
 
-module.exports = like
+module.exports = Like

@@ -4,7 +4,8 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const Message = require('./message')
 const Like = require('./like')
-const Match= require('./match')
+const Match = require('./match')
+
 
 const userSchema = new mongoose.Schema({
     username: {
