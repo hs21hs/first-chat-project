@@ -5,6 +5,7 @@ const User = require('../models/user')
 const auth = require('../middleware/auth')
 
 router.post('/dislikes', auth, async (req, res) => {
+    console.log('jj', req.body)
     const dislike = new Dislike({
         sender: req.body.sender,
         reciever: req.body.reciever

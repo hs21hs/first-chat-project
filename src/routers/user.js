@@ -87,7 +87,6 @@ router.post('/getSwipeUsers', auth, async (req, res) => {
         if(obj.match || obj.like || obj.dislike){return null}else{return obj.user}
     })
     //console.log('utbf',usersToBeFiltered)
-    
     const finalUsersAr = usersToBeFiltered.filter((user) => {
         if(user){return true}else{return false}
     })
