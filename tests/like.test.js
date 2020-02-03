@@ -16,17 +16,20 @@ const { userOneId,
 
     beforeEach(setupDatabase)
 
-test('should create a like', async () => {
+test('should create a like, and should not contain .match (as there are no complimentary likes)', async () => {
     const currentUser = await User.findOne({_id: userOneId})
 
-    await request(app)
+    const resp = await request(app)
     .post('/likes')
     .set('Authorization', (`Bearer ${currentUser.tokens[0].token}`))
     .send({
        sender: userOneId,
        reciever: userTwoId
     }).expect(201)
+
+    expect(resp.body.match).toBeFalsy()
 })
+
 
 
 test('should fail to create a like sent to ones self', async () => {
@@ -59,4 +62,26 @@ test('two complimentary likes make a match', async () => {
 
     expect(match).toBeInstanceOf(Match)
 
+})
+
+test('two complementary likes should make a match and return an obj with .newMatch true', async () => {
+    const currentUser = await User.findOne({_id: userOneId})
+
+    await request(app)
+    .post('/likes')
+    .set('Authorization', (`Bearer ${currentUser.tokens[0].token}`))
+    .send({
+       sender: userOneId,
+       reciever: userTwoId
+    })
+
+    const resp = await request(app)
+    .post('/likes')
+    .set('Authorization', (`Bearer ${currentUser.tokens[0].token}`))
+    .send({
+       sender: userTwoId,
+       reciever: userOneId
+    }).expect(201)
+
+    expect(resp.body.match).toBeTruthy()
 })

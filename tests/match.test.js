@@ -69,8 +69,6 @@ test('should get all current users matches', async () => {
     .post('/myMatches')
     .set('Authorization', (`Bearer ${currentUser.tokens[0].token}`))
     .expect(200)
-    
-    console.log("resp of my mattces",resp.body)
 
     expect(resp.body.length).toEqual(2)
     //expect(resp.body).toEqual(expect.arrayContaining([matchOne,matchTwo]))

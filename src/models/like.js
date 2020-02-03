@@ -17,7 +17,7 @@ const likeSchema = new mongoose.Schema({
 
 
 
-likeSchema.pre('save', async function (next) {
+likeSchema.pre('save', async function (req,res,next) {
     const like = this
     
     if (like.sender.toString() === like.reciever.toString()) {
@@ -26,11 +26,7 @@ likeSchema.pre('save', async function (next) {
         const complementaryLike = await Like.findOne({sender: like.reciever, reciever: like.sender})
         if(complementaryLike){
             const m = await new Match({userOne: complementaryLike.sender, userTwo: this.sender}).save()
-            console.log('match!', m)
-            
-            //io.emit('nmatch', m)
-        
-        }
+    }
         next()
     }
 
