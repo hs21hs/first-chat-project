@@ -1,8 +1,9 @@
 const request = require('supertest')
 const app = require('../src/app')
 const Match = require('../src/models/match')
+const User = require('../src/models/user')
 const mongoose = require('mongoose')
-const { userOneId, userTwoId, setupDatabase } = require('./fixtures/db')
+const { userOneId, userTwoId, userFourId, setupDatabase } = require('./fixtures/db')
 
 beforeEach(setupDatabase)
 
@@ -37,4 +38,32 @@ test('should not create a match with ones self', async () => {
     }
     expect(r).toBeTruthy()
     
+})
+
+test('should get all current users matches', async () => {
+    const currentUser = await User.findOne({_id: userOneId})
+
+    const matchOneId = new mongoose.Types.ObjectId()
+    const matchOne = await new Match({
+    _id: matchOneId,
+    userOne: userOneId,
+    userTwo: userTwoId
+    }).save()
+
+    const matchTwoId = new mongoose.Types.ObjectId()
+    const matchTwo = await new Match({
+    _id: matchTwoId,
+    userOne: userOneId,
+    userTwo: userFourId
+    }).save()
+     
+    const resp = await request(app)
+    .get('/myMatches')
+    .set('Authorization', (`Bearer ${currentUser.tokens[0].token}`))
+    .expect(200)
+    
+    console.log(resp.body)
+
+    expect(resp.body.length).toEqual(2)
+    //expect(resp.body).toEqual(expect.arrayContaining([matchOne,matchTwo]))
 })

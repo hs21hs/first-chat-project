@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const Match = require('./match')
-const io = require('../index')
+
 
 const likeSchema = new mongoose.Schema({
         sender: {
