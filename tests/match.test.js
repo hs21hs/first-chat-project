@@ -58,12 +58,32 @@ test('should get all current users matches', async () => {
     }).save()
      
     const resp = await request(app)
-    .get('/myMatches')
+    .post('/myMatches')
     .set('Authorization', (`Bearer ${currentUser.tokens[0].token}`))
     .expect(200)
     
-    console.log(resp.body)
+    console.log("resp of my mattces",resp.body)
 
     expect(resp.body.length).toEqual(2)
     //expect(resp.body).toEqual(expect.arrayContaining([matchOne,matchTwo]))
 })
+
+// test('cannot create same match twice', async () => {
+//     const currentUser = await User.findOne({_id: userOneId})
+
+//     const matchOneId = new mongoose.Types.ObjectId()
+//     const matchOne = await new Match({
+//     _id: matchOneId,
+//     userOne: userOneId,
+//     userTwo: userTwoId
+//     }).save()
+
+//     const matchTwoId = new mongoose.Types.ObjectId()
+//     const matchTwo = await new Match({
+//     _id: matchTwoId,
+//     userOne: userOneId,
+//     userTwo: userTwoId
+//     }).save().catch((e) => {
+//         expect(e)
+//     })
+// })

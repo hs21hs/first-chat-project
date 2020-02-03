@@ -15,14 +15,14 @@ const matchSchema = new mongoose.Schema({
 
 matchSchema.pre('save', async function (next) {
     const match = this
-   
+    
     if (match.userOne._id.toString() === match.userTwo._id.toString()) {
-        throw new Error("cannot send a match to ones self")
-    } else { next()}
+        throw new Error("cannot send a match to ones self")}
+    else{next()}
 
     
 })
 
-const match = mongoose.model('Match', matchSchema)
+const Match = mongoose.model('Match', matchSchema)
 
-module.exports = match
+module.exports = Match

@@ -57,10 +57,10 @@ as is
 
 right now:
 
-- make get myMatches return the other user not the match obj
+- /myMatches seems to be resp with too many users. fix it.
+- make a validation in pre save that the same match cant happen twice and test it.
     
 -like button
-    
         if match create a match and socket.emit all and for logged in ppl add it to their myMatches state
     
-
+-build chat w matches
