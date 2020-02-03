@@ -2,8 +2,9 @@ const request = require('supertest')
 const app = require('../src/app')
 const Match = require('../src/models/match')
 const User = require('../src/models/user')
+const Like = require('../src/models/like')
 const mongoose = require('mongoose')
-const { userOneId, userTwoId, userFourId, setupDatabase } = require('./fixtures/db')
+const { userOneId, userTwoId, userThreeId, userFourId, setupDatabase } = require('./fixtures/db')
 
 beforeEach(setupDatabase)
 
@@ -57,6 +58,13 @@ test('should get all current users matches', async () => {
     userTwo: userFourId
     }).save()
      
+    const matchThreeId = new mongoose.Types.ObjectId()
+    const matchThree = await new Match({
+    _id: matchThreeId,
+    userOne: userTwoId,
+    userTwo: userFourId
+    }).save()
+
     const resp = await request(app)
     .post('/myMatches')
     .set('Authorization', (`Bearer ${currentUser.tokens[0].token}`))
