@@ -9,6 +9,7 @@ const confirm = (socket) => {
 io.on('connection', (socket) => {
     console.log("connectioned")
     recievedMessage(socket)
+    newMatch(socket)
 })
 
 const createMessage = (messageInfo, socket) => {
@@ -20,7 +21,7 @@ const createMessage = (messageInfo, socket) => {
 
     message.save().then((m) => {
         
-        io.emit('bc', m)
+        socket.emit('bc', m)
     }).catch((e) => {
         
     })
@@ -33,5 +34,13 @@ const recievedMessage = (socket) => {
     })
 }
 }
+
+const newMatch = (socket) => {
+    socket.on(("newMatch"), (match) => {
+        socket.broadcast.emit('newMatch', match)
+        
+    })
+}
+
 
 module.exports = runSockets
