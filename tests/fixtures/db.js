@@ -68,6 +68,14 @@ const messageOne = {
     reciever: userOneId
 }
 
+const messageThreeId = new mongoose.Types.ObjectId()
+const messageThree = {
+    _id: messageThreeId,
+    text: 'an unread test msg again from alex to haider',
+    sender: userTwoId,
+    reciever: userOneId
+}
+
 const messageTwoId = new mongoose.Types.ObjectId()
 const messageTwo = {
     _id: messageTwoId,

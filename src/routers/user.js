@@ -120,7 +120,7 @@ router.post('/getAllUsers', auth, async (req, res) => {
     }) 
     
     const final = await Promise.all(readUsers)
-
+    
     try {
         res.status(200).send(final)
     } catch (e) {

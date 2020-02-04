@@ -3,6 +3,7 @@ const Like = require('../models/like')
 const router = new express.Router()
 const User = require('../models/user')
 const Match = require('../models/match')
+const Message = require('../models/message')
 const auth = require('../middleware/auth')
 
 router.post('/myMatches', auth, async (req, res) => {
@@ -14,8 +15,20 @@ router.post('/myMatches', auth, async (req, res) => {
         if (match.userTwo._id.toString() === req.user._id.toString()){return match.userOne}
     })
     
+    //getmumatches will check each user and see if they have sent any unread msgs to me, if so do user.newMessage = true
+    const matchedUsersWithNewMsgKey = myMatchedUsers.map(async (user) => {
+        const couplesMessage = await Message.findOne({reciever: req.user._id, sender: user._id.toString(), read: false})
+        const userObj = user.toObject()
+        if(couplesMessage){
+            userObj.newMessage = true
+        }
+        return userObj
+    }) 
+    const final = await Promise.all(matchedUsersWithNewMsgKey)
+    console.log('mmmmmm',final)
+
     try {
-        res.status(200).send(myMatchedUsers)
+        res.status(200).send(final)
     } catch (e) {
         res.status(400).send(e)
     }

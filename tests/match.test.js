@@ -1,6 +1,7 @@
 const request = require('supertest')
 const app = require('../src/app')
 const Match = require('../src/models/match')
+const Message = require('../src/models/message')
 const User = require('../src/models/user')
 const Like = require('../src/models/like')
 const mongoose = require('mongoose')
@@ -74,6 +75,39 @@ test('should get all current users matches', async () => {
     //expect(resp.body).toEqual(expect.arrayContaining([matchOne,matchTwo]))
 })
 
+
+test('should get an array of matches and newMessage true where aplpicable', async () => {
+    const currentUser = await User.findOne({_id: userOneId})
+
+    const matchOneId = new mongoose.Types.ObjectId()
+    const matchOne = await new Match({
+    _id: matchOneId,
+    userOne: userOneId,
+    userTwo: userTwoId
+    }).save()
+
+    const matchTwoId = new mongoose.Types.ObjectId()
+    const matchTwo = await new Match({
+    _id: matchTwoId,
+    userOne: userOneId,
+    userTwo: userFourId
+    }).save()
+     
+    const matchThreeId = new mongoose.Types.ObjectId()
+    const matchThree = await new Match({
+    _id: matchThreeId,
+    userOne: userTwoId,
+    userTwo: userFourId
+    }).save()
+    
+    const resp = await request(app)
+    .post('/myMatches')
+    .set('Authorization', (`Bearer ${currentUser.tokens[0].token}`))
+    .expect(200)
+
+    expect(resp.body.length).toEqual(2)
+    //expect(resp.body).toEqual(expect.arrayContaining([matchOne,matchTwo]))
+})
 // test('cannot create same match twice', async () => {
 //     const currentUser = await User.findOne({_id: userOneId})
 

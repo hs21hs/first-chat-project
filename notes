@@ -56,21 +56,30 @@ as is
 
 
 right now:
+-remove all code relating to home page chat(just frontend)
 
+-when there is a new match it notifies on the match tn (state/be)
+-remove the alerts for new match
 
-    
--so chat is there we need correct notifications.
-    -when there is a new msg it notifies on the match tn (state)
-    -when there is a new msg it notifies on the match tn (be)
-    msgs have a read (true/false). state.matches will retrieve users with an attribute newMsg (true/false) added on by the router.
+-crud on the user profile page
+    -(firstly add attributes on user model to filter swipers)
+    -and make the swiper endpoint respect those filter
+    -basic edit of user data
 
-    -when there is a new match it notifies on the match tn (state)
-    -when there is a new match it notifies on the match tn (be)
+-write tests for the endpoints/units left out
+-refactor your code and indentation correctly.
+-work on css and style
 
-- make a validation in pre save that the same match cant happen twice and test it.
--think of any other tests
+bonus after css/style:
+-filter by geo location
+-weather app
+
+later:
+-make a validation in pre save that the same match cant happen twice and test it.
 -think of any other validations
 
--refactor your code and indentation correctly.
 
--work on css and style
+
+
+
+
