@@ -10,19 +10,31 @@ router.post('/myMatches', auth, async (req, res) => {
    const myMatches = await Match.find({$or:[{userOne: req.user._id},{userTwo: req.user._id}]})
    .populate({ path: 'userOne'}).populate({ path: 'userTwo'});
 
+   console.log("mymatches",myMatches)
     myMatchedUsers = myMatches.map((match) => {
-        if (match.userOne._id.toString() === req.user._id.toString()){return match.userTwo}
-        if (match.userTwo._id.toString() === req.user._id.toString()){return match.userOne}
+        if (match.userOne._id.toString() === req.user._id.toString()){
+            const matchObj = match.toObject()
+            const opened = matchObj.userOneOpened
+            matchObj.userTwo.openedMatch = opened
+            
+            return matchObj.userTwo
+        }
+        if (match.userTwo._id.toString() === req.user._id.toString()){
+            const matchObj = match.toObject()
+            const opened = matchObj.userTwoOpened
+            matchObj.userOne.openedMatch = opened
+            
+            return matchObj.userOne
+        }
     })
     
     //getmumatches will check each user and see if they have sent any unread msgs to me, if so do user.newMessage = true
     const matchedUsersWithNewMsgKey = myMatchedUsers.map(async (user) => {
         const couplesMessage = await Message.findOne({reciever: req.user._id, sender: user._id.toString(), read: false})
-        const userObj = user.toObject()
         if(couplesMessage){
-            userObj.newMessage = true
+            user.newMessage = true
         }
-        return userObj
+        return user
     }) 
     const final = await Promise.all(matchedUsersWithNewMsgKey)
     console.log('mmmmmm',final)

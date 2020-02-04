@@ -10,7 +10,19 @@ const matchSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             required: true,
             ref: 'User'
+        },
+        userOneOpened: {
+            type: Boolean,
+            default: false,
+            required: true
+        },
+        userTwoOpened: {
+            type: Boolean,
+            default: false,
+            required: true   
         }
+        
+
 })
 
 matchSchema.pre('save', async function (next) {

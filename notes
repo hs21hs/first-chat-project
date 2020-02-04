@@ -56,10 +56,12 @@ as is
 
 
 right now:
--remove all code relating to home page chat(fe nd be but just comment stuff u might want)
 
 -when there is a new match it notifies on the match tn (state/be)
--remove the alerts for new match
+    -matches array will have new match value on each match accordingly.
+    -frontend will show new match on matches page button
+    -frontend will replace alert with a custom alert with state and set timeout
+
 
 -crud on the user profile page
     -(firstly add attributes on user model to filter swipers)

@@ -108,6 +108,35 @@ test('should get an array of matches and newMessage true where aplpicable', asyn
     expect(resp.body.length).toEqual(2)
     //expect(resp.body).toEqual(expect.arrayContaining([matchOne,matchTwo]))
 })
+
+
+test('should get an array of matches and newMatch true where aplpicable', async () => {
+    const currentUser = await User.findOne({_id: userOneId})
+
+    const matchOneId = new mongoose.Types.ObjectId()
+    const matchOne = await new Match({
+    _id: matchOneId,
+    userOne: userOneId,
+    userTwo: userTwoId,
+    userOneOpened: true
+    }).save()
+
+    const matchThreeId = new mongoose.Types.ObjectId()
+    const matchThree = await new Match({
+    _id: matchThreeId,
+    userOne: userOneId,
+    userTwo: userFourId
+    }).save()
+    
+    const resp = await request(app)
+    .post('/myMatches')
+    .set('Authorization', (`Bearer ${currentUser.tokens[0].token}`))
+    .expect(200)
+
+    resp.body.f
+    expect(resp.body).toEqual([])
+    //expect(resp.body).toEqual(expect.arrayContaining([matchOne,matchTwo]))
+})
 // test('cannot create same match twice', async () => {
 //     const currentUser = await User.findOne({_id: userOneId})
 
