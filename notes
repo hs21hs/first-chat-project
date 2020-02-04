@@ -57,20 +57,17 @@ as is
 
 right now:
 
--when there is a new match it notifies on the match tn (state/be)
-    -matches array will have new match value on each match accordingly.
-    -frontend will show new match on matches page button
-    -frontend will replace alert with a custom alert with state and set timeout
-
-
+-work on css and style
+    -when there is a new match frontend will replace alert with a custom alert with state and set timeout
+    -make ur profile page show correctly
+    
 -crud on the user profile page
+    -basic edit of user data
     -(firstly add attributes on user model to filter swipers)
     -and make the swiper endpoint respect those filter
-    -basic edit of user data
 
--write tests for the endpoints/units left out
 -refactor your code and indentation correctly.
--work on css and style
+-write tests for the endpoints/units left out
 
 bonus after css/style:
 -filter by geo location
