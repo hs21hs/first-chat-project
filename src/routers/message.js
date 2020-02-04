@@ -8,10 +8,10 @@ const auth = require('../middleware/auth')
 router.post('/messages', auth, async (req, res) => {
     const message = new Message({
         text:req.body.text,
-        sender: req.user.sender,
-        reciever: req.body.reciever
+        sender: req.user._id,
+        reciever: req.body.reciever._id
     })
-
+    console.log('msg',message )
     try {
         await message.save()
         res.status(201).send(message)
@@ -29,22 +29,26 @@ router.post('/currentMessages', auth, async (req, res) => {
         });
 
         const toUpdate = req.body.chatPartner.loggedInUserIs + "Opened"
-        console.log('tt',req.body.chatPartner.match_id)
+        //console.log('tt',req.body.chatPartner.match_id)
 
         const um = await Match.updateOne({ 
             _id: req.body.chatPartner.match_id},{
             [toUpdate]: true
         });
-        console.log('um ',um)
-        const msgs = await Message.find().populate({ path: 'sender'}).populate({ path: 'reciever'});
+        //console.log('um ',um)
+        //console.log(req.user._id.toString())
+        const y = req.body.chatPartner._id.toString()
+        console.log(y,y.toString())
+        const msgs = await Message.find({$or:[{sender: req.user._id.toString(), reciever: req.body.chatPartner._id},{sender: req.body.chatPartner._id, reciever: req.user._id.toString()}]}).populate({ path: 'sender'}).populate({ path: 'reciever'});
+        //console.log('msgs ',msgs)
+
+        // const filteredMsgs = msgs.filter((msg) => {
+        //     if(msg.sender._id.toString() === req.user._id.toString() && msg.reciever._id.toString() === req.body.chatPartner._id.toString()){return true}
+        //     if(msg.sender._id.toString() === req.body.chatPartner._id.toString() && msg.reciever._id.toString() === req.body.currentUser._id.toString()){return true}
+        //     else{return false}
+        // })
         
-        const filteredMsgs = msgs.filter((msg) => {
-            if(msg.sender._id.toString() === req.user._id && msg.reciever._id.toString() === req.body.chatPartner._id){return true}
-            if(msg.sender._id.toString() === req.body.chatPartner._id && msg.reciever._id.toString() === req.body.currentUser._id){return true}
-            else{return false}
-        })
-        
-        res.status(200).send(filteredMsgs)
+        res.status(200).send(msgs)
     } catch (e) {
         res.status(400).send(e)
     }
