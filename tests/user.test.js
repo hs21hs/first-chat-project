@@ -126,6 +126,8 @@ test('should get all swipe users (not the current user, or anyone theyve liked)'
 
 })
 
+
+//old  endpoins
 // test('should get all users except the current user', async () => {
 //     const currentUser = await User.findOne({_id: userOneId})
 //     const resp = await request(app)

@@ -100,32 +100,32 @@ router.post('/getSwipeUsers', auth, async (req, res) => {
 })
 
 
+//old chat endpoint
+// router.post('/getAllUsers', auth, async (req, res) => {
 
-router.post('/getAllUsers', auth, async (req, res) => {
+//     const allUsers = await User.find()
 
-    const allUsers = await User.find()
-
-    const filteredUsers = allUsers.filter((user) => {
-        if (user._id.toString() === req.user._id.toString()){return false}else{return true}
-    })
+//     const filteredUsers = allUsers.filter((user) => {
+//         if (user._id.toString() === req.user._id.toString()){return false}else{return true}
+//     })
     
-    const readUsers = filteredUsers.map(async (user) => {
-        const couplesMessages = await Message.find({reciever: req.user._id, sender: user._id.toString()})
-        couplesMessages.forEach( (msg) => {
-            if (msg.read === false){
+//     const readUsers = filteredUsers.map(async (user) => {
+//         const couplesMessages = await Message.find({reciever: req.user._id, sender: user._id.toString()})
+//         couplesMessages.forEach( (msg) => {
+//             if (msg.read === false){
                 
-                user.newMessage = true}
-        })
-        return user
-    }) 
+//                 user.newMessage = true}
+//         })
+//         return user
+//     }) 
     
-    const final = await Promise.all(readUsers)
+//     const final = await Promise.all(readUsers)
     
-    try {
-        res.status(200).send(final)
-    } catch (e) {
-        res.status(400).send(e)
-    }
-})
+//     try {
+//         res.status(200).send(final)
+//     } catch (e) {
+//         res.status(400).send(e)
+//     }
+// })
 
 module.exports = router

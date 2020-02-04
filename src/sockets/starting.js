@@ -2,17 +2,12 @@ const Message = require('../models/message')
 
 const runSockets = (io) => {
 
-const confirm = (socket) => {
-    socket.emit('countUpdated')
-}
 
 io.on('connection', (socket) => {
     console.log("connectioned")
     newMatch(socket)
     newMessage(socket)
 })
-
-
 
 const newMatch = (socket) => {
     socket.on(("newMatch"), (match) => {
