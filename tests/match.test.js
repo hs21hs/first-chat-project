@@ -133,9 +133,16 @@ test('should get an array of matches and newMatch true where aplpicable', async 
     .set('Authorization', (`Bearer ${currentUser.tokens[0].token}`))
     .expect(200)
 
-    resp.body.f
-    expect(resp.body).toEqual([])
-    //expect(resp.body).toEqual(expect.arrayContaining([matchOne,matchTwo]))
+    const user2 = resp.body.find((user) => {
+        if (user._id === userTwoId.toString()){return true}
+    })
+    expect(user2.openedMatch).toEqual(true)
+
+    const user4 = resp.body.find((user) => {
+        if (user._id === userFourId.toString()){return true}
+    })
+    expect(user4.openedMatch).toEqual(false)
+
 })
 // test('cannot create same match twice', async () => {
 //     const currentUser = await User.findOne({_id: userOneId})

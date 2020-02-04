@@ -1,12 +1,14 @@
 const express = require('express')
 const Message = require('../models/message')
+const Match = require('../models/match')
 const router = new express.Router()
 const User = require('../models/user')
+const auth = require('../middleware/auth')
 
-router.post('/messages', async (req, res) => {
+router.post('/messages', auth, async (req, res) => {
     const message = new Message({
         text:req.body.text,
-        sender: req.body.sender,
+        sender: req.user.sender,
         reciever: req.body.reciever
     })
 
@@ -18,18 +20,26 @@ router.post('/messages', async (req, res) => {
     }
 })
 
-router.post('/currentMessages', async (req, res) => {
+router.post('/currentMessages', auth, async (req, res) => {
     try {
         await Message.updateMany({ 
-            reciever: req.body.currentUser._id, 
+            reciever: req.user._id, 
             sender: req.body.chatPartner._id }, {
             read:true
         });
-          
+
+        const toUpdate = req.body.chatPartner.loggedInUserIs + "Opened"
+        console.log('tt',req.body.chatPartner.match_id)
+
+        const um = await Match.updateOne({ 
+            _id: req.body.chatPartner.match_id},{
+            [toUpdate]: true
+        });
+        console.log('um ',um)
         const msgs = await Message.find().populate({ path: 'sender'}).populate({ path: 'reciever'});
         
         const filteredMsgs = msgs.filter((msg) => {
-            if(msg.sender._id.toString() === req.body.currentUser._id && msg.reciever._id.toString() === req.body.chatPartner._id){return true}
+            if(msg.sender._id.toString() === req.user._id && msg.reciever._id.toString() === req.body.chatPartner._id){return true}
             if(msg.sender._id.toString() === req.body.chatPartner._id && msg.reciever._id.toString() === req.body.currentUser._id){return true}
             else{return false}
         })

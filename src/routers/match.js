@@ -10,20 +10,24 @@ router.post('/myMatches', auth, async (req, res) => {
    const myMatches = await Match.find({$or:[{userOne: req.user._id},{userTwo: req.user._id}]})
    .populate({ path: 'userOne'}).populate({ path: 'userTwo'});
 
-   console.log("mymatches",myMatches)
+   
     myMatchedUsers = myMatches.map((match) => {
         if (match.userOne._id.toString() === req.user._id.toString()){
             const matchObj = match.toObject()
             const opened = matchObj.userOneOpened
             matchObj.userTwo.openedMatch = opened
-            
+            matchObj.userTwo.match_id = matchObj._id
+            matchObj.userTwo.loggedInUserIs = "userOne"
+
             return matchObj.userTwo
         }
         if (match.userTwo._id.toString() === req.user._id.toString()){
             const matchObj = match.toObject()
             const opened = matchObj.userTwoOpened
             matchObj.userOne.openedMatch = opened
-            
+            matchObj.userOne.match_id = matchObj._id
+            matchObj.userOne.loggedInUserIs = "userTwo"
+
             return matchObj.userOne
         }
     })
@@ -37,7 +41,6 @@ router.post('/myMatches', auth, async (req, res) => {
         return user
     }) 
     const final = await Promise.all(matchedUsersWithNewMsgKey)
-    console.log('mmmmmm',final)
 
     try {
         res.status(200).send(final)
