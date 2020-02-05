@@ -57,14 +57,23 @@ as is
 
 right now:
 
--work on css and style
-    -when there is a new match frontend will replace alert with a custom alert with state and set timeout
-    -make ur profile page show correctly
-    
+-add bio to user model req tru
+-create bio in sign up field
+-show the bio where approriate
+
+-and option to pass img url in sign up and see what happens when u pass something wrong etc
+
+-figure out how to have a seed option and set it in place
+
+-remove the filter and edit buttons on the profile page. 
+
+-create a read me and fix the project on cv/ linked in
+
 -crud on the user profile page
-    -basic edit of user data
     -(firstly add attributes on user model to filter swipers)
     -and make the swiper endpoint respect those filter
+    -basic edit of user data(attributes/filters)
+    
 
 -refactor your code and indentation correctly.
 -write tests for the endpoints/units left out
