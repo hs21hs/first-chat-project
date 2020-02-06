@@ -5,6 +5,7 @@ const server = http.createServer(app)
 
 const User = require('./models/user')
 const Match= require('./models/match')
+const Like= require('./models/like')
 const Message = require('./models/message')
 
 const port = process.env.PORT || 3000
@@ -144,40 +145,24 @@ const userEleven = {
     image_url: "https://en.goodtimes.my/wp-content/uploads/2018/02/2302dog1.jpg"
 }
 
-const matchOneId = new mongoose.Types.ObjectId()
-const matchOne = {
-    _id: matchOneId,
-    userOne: userTwoId,
-    userTwo: userSevenId
+const likeOneId = new mongoose.Types.ObjectId()
+const likeOne = {
+    _id: likeOneId,
+    sender: userFourId,
+    reciever: userTwoId
+}
+const likeTwoId = new mongoose.Types.ObjectId()
+const likeTwo = {
+    _id: likeTwoId,
+    sender: userSixId,
+    reciever: userTwoId
 }
 
-const matchTwoId = new mongoose.Types.ObjectId()
-const matchTwo = {
-    _id: matchTwoId,
-    userOne: userTwoId,
-    userTwo: userTenId
-}
-
-const matchThreeId = new mongoose.Types.ObjectId()
-const matchThree = {
-    _id: matchThreeId,
-    userOne: userThreeId,
-    userTwo: userEightId
-}
-
-const matchFourId = new mongoose.Types.ObjectId()
-const matchFour = {
-    _id: matchFourId,
-    userOne: userThreeId,
-    userTwo: userElevenId
-}
-
-const messageOneId = new mongoose.Types.ObjectId()
-const messageOne = {
-    _id: messageOneId,
-    sender: userSevenId,
-    reciever: userTwoId,
-    text: "Hey there! Hows it going?"
+const likeThreeId = new mongoose.Types.ObjectId()
+const likeThree = {
+    _id: likeThreeId,
+    sender: userFiveId,
+    reciever: userThreeId
 }
 
 seed = async () => {
@@ -192,9 +177,10 @@ seed = async () => {
     const u9 = await new User(userNine).save()
     const u10 = await new User(userTen).save()
     const u11 = await new User(userEleven).save()
-    const match1 = await new Match(matchOne).save()
-    const match2 = await new Match(matchTwo).save()
-    const message1 = await new Message(messageOne).save()
+    const like1 = await new Like(likeOne).save()
+    const like2 = await new Like(likeTwo).save()
+    const like3 = await new Like(likeThree).save()
+    console.log("done seeding")
 }
 
 seed()
