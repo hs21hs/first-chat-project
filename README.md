@@ -15,3 +15,5 @@ To test this application;
 -frontend: https://github.com/hs21hs/frontend-chat-project
 5. Note- it is suggested to login with seeded user "l@hotmail.com", and to test chat features login a second time with "d@hotmail.com". Password for both users is "default123".
 (if you choose to sign up a new user and do not provide an image url it will give you a default profile picture).
+
+![](src/assets/petpal-msg-gif.gif)
