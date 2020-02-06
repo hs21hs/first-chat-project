@@ -1,5 +1,5 @@
 # first-chat-project
-(PetPal backend) Node JS/ React JS/ Jest/ MongoDb/ Express/ Mongoose
+PetPal backend (Node JS/ React JS/ Jest/ MongoDb/ Express/ Mongoose).
 A full stack web application, designed to help dog owners find play dates for their dogs.(Tinder style interface)
 
 -Implemented TTD for backend with Jest testing framework.
@@ -16,4 +16,5 @@ To test this application;
 5. Note- it is suggested to login with seeded user "l@hotmail.com", and to test chat features login a second time with "d@hotmail.com". Password for both users is "default123".
 (if you choose to sign up a new user and do not provide an image url it will give you a default profile picture).
 
+Thank You!
 ![](src/assets/petpal-msg-gif.gif)
