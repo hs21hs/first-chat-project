@@ -142,7 +142,7 @@ const userEleven = {
     breed: "doberman",
     age: 4,
     bio: "danger is an adventerous dog, though he gets in trouble too much sometimes",
-    image_url: "https://en.goodtimes.my/wp-content/uploads/2018/02/2302dog1.jpg"
+    image_url: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQGkpoB4V0e7YADu50iK-QloIziaj5Hk1fneOnwvzcqECLLtgZd"
 }
 
 const likeOneId = new mongoose.Types.ObjectId()
