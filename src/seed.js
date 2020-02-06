@@ -52,18 +52,6 @@ const userThree = {
 const userFourId = new mongoose.Types.ObjectId()
 const userFour = {
     _id: userFourId,
-    username: 'Wolf',
-    password: 'default123',
-    email: "w@hotmail.com",
-    breed: "wolf",
-    age: 3,
-    bio: "wolf is not a dog, but he still needs friends",
-    image_url: "https://www.thesun.co.uk/wp-content/uploads/2019/01/NINTCHDBPICT000460252723.jpg"
-}
-
-const userFiveId = new mongoose.Types.ObjectId()
-const userFive = {
-    _id: userFiveId,
     username: 'grey',
     password: 'default123',
     email: "gr@hotmail.com",
@@ -71,6 +59,18 @@ const userFive = {
     age: 6,
     bio: "grey is super fast, he's very calm when were at home. But when I take him to the park no one can keep up with him",
     image_url: "https://www.sundaypost.com/wp-content/uploads/sites/13/2017/12/jw0022083.JPG-e1514063889763.jpg"
+}
+
+const userFiveId = new mongoose.Types.ObjectId()
+const userFive = {
+    _id: userFiveId,
+    username: 'Wolf',
+    password: 'default123',
+    email: "w@hotmail.com",
+    breed: "wolf",
+    age: 3,
+    bio: "wolf is not a dog, but he still needs friends",
+    image_url: "https://www.thesun.co.uk/wp-content/uploads/2019/01/NINTCHDBPICT000460252723.jpg"
 }
 
 const userSixId = new mongoose.Types.ObjectId()
