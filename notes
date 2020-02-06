@@ -60,7 +60,6 @@ right now:
 -add bio to user model req tru
 -create bio in sign up field
 -show the bio where approriate
-
 -and option to pass img url in sign up and see what happens when u pass something wrong etc
 
 -figure out how to have a seed option and set it in place

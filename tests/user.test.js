@@ -18,6 +18,7 @@ test('should sign up new user', async () => {
         email: "fred@hotmail.com",
         breed: "labrador",
         age: 4,
+        bio: "hey there fred is a playful lab",
         image_url: "https://3apq7g38q3kw2yn3fx4bojii-wpengine.netdna-ssl.com/wp-content/uploads/2019/10/dog-owner-750x501.jpeg"
     }).expect(201)
 })

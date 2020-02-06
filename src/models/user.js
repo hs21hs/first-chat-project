@@ -43,6 +43,10 @@ const userSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    bio: {
+        type: String,
+        default: "no bio"
+    },
     image_url: {
         type: String,
         default: "https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2018/01/12200707/lab-high-five-header.jpg"
