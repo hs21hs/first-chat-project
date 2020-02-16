@@ -7,6 +7,8 @@ A full stack web application, designed to help dog owners find play dates for th
 -MVC design pattern and RESTful routes.
 -Employed validation using JWT.
 
+Link to recorded demo: https://www.youtube.com/watch?v=Gfyzbo2OnP0
+
 To test this application;
 1. Please start up MongoDB.
 2. In the terminal enter "npm run seed" for seed data. (you should see the console log "done seeding").
