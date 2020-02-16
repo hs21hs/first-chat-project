@@ -1,6 +1,7 @@
 # first-chat-project
 PetPal backend (Node JS/ React JS/ Jest/ MongoDB/ Express/ Mongoose).
 A full stack web application, designed to help dog owners find play dates for their dogs.(Tinder style interface)
+
 Link to recorded demo: https://www.youtube.com/watch?v=Gfyzbo2OnP0
 
 -Implemented TTD for backend with Jest testing framework.
