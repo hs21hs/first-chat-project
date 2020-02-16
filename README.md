@@ -3,15 +3,16 @@ PetPal backend (Node JS/ React JS/ Jest/ MongoDB/ Express/ Mongoose).
 A full stack web application, designed to help dog owners find play dates for their dogs.(Tinder style interface)
 Link to recorded demo: https://www.youtube.com/watch?v=Gfyzbo2OnP0
 
-
+-Implemented TTD for backend with Jest testing framework.
+-Utilized Socket.io to implement real time functionality for messaging and matches.
 
 -MVC design pattern and RESTful routes.
 
 -Employed validation using JWT.
 
 To test this application;
--Implemented TTD for backend with Jest testing framework.
--Utilized Socket.io to implement real time functionality for messaging and matches.
+g
+h
 1. Please start up MongoDB.
 2. In the terminal enter "npm run seed" for seed data. (you should see the console log "done seeding").
 3. Once you see "done seeding", please close that process and run "npm run dev".
