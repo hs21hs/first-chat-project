@@ -5,14 +5,10 @@ Link to recorded demo: https://www.youtube.com/watch?v=Gfyzbo2OnP0
 
 -Implemented TTD for backend with Jest testing framework.
 -Utilized Socket.io to implement real time functionality for messaging and matches.
-
 -MVC design pattern and RESTful routes.
-
 -Employed validation using JWT.
 
 To test this application;
-g
-h
 1. Please start up MongoDB.
 2. In the terminal enter "npm run seed" for seed data. (you should see the console log "done seeding").
 3. Once you see "done seeding", please close that process and run "npm run dev".
