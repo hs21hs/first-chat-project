@@ -8,6 +8,12 @@ const Match = require('../models/match')
 const auth = require('../middleware/auth')
 const mongoose = require('mongoose')
 
+
+router.get('/users', async (req, res) => {
+    
+    res.status(201).send('hello now')
+})
+
 router.post('/users', async (req, res) => {
     
     const user = new User(req.body)
