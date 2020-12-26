@@ -4,9 +4,9 @@ A full stack web application, designed to help dog owners find play dates for th
 
 Link to recorded demo: https://www.youtube.com/watch?v=Gfyzbo2OnP0
 
--Implemented TTD for backend with Jest testing framework.
 -Utilized Socket.io to implement real time functionality for messaging and matches.
 -MVC design pattern and RESTful routes.
+-Implemented TTD for backend with Jest testing framework.
 -Employed validation using JWT.
 
 To test this application;
